@@ -1,0 +1,276 @@
+Triangulo Tri;
+Cuadrado Cuad;
+Rectangulo Rect;
+Circulo Cir;
+Pentagono Pent;
+Hexagono Hex;
+Heptagono Hept;
+Octagono Octa;
+
+int caras, centroX, centroY, radio, e;
+void setup()
+{
+  size(900, 600);
+  Tri = new Triangulo(150, 200, 90, 20, 30, 30, 30);
+  Cuad = new Cuadrado(350, 150, 50);
+  Rect = new Rectangulo(500, 150, 90, 50);
+  Cir = new Circulo(700, 180, 80);
+  Pent = new Pentagono(20, 3);
+  Hex = new Hexagono(5, 3);
+  Hept = new Heptagono(5, 3);
+  Octa = new Octagono(5, 3);
+}
+
+void draw()
+{
+  background(0);
+  Tri.display();
+  Cuad.display();
+  Rect.display();
+  Cir.display();
+  Pent.display();
+  Hex.display();
+  Hept.display();
+  Octa.display();
+}
+
+interface Figura
+{
+  float perimetro();
+  float area();
+}
+
+class Triangulo implements Figura
+{
+  float x, y, b, h, l1, l2, l3;
+
+  Triangulo(float x_, float y_, float b_, float h_, float l1_, float l2_, float l3_)
+  {
+    x = x_;
+    y = y_;
+    b = b_;
+    h = h_;
+    l1 = l1_;
+    l2 = l2_;
+    l3 = l3_;
+  }
+  float perimetro()
+  {
+    return l1 + l2 + l3;
+  }
+  float area()
+  {
+    return (b*h)/2;
+  }
+  void display()
+  {
+    noStroke();
+    triangle(x, y, x+b, y, x+ b/2, y - (h+b/2));
+  }
+}
+
+class Cuadrado implements Figura
+{
+  float x, y, l;
+
+  Cuadrado(float x_, float y_, float l_)
+  {
+    x = x_;
+    y = y_;
+    l = l_;
+  }
+  float perimetro()
+  {
+    return l*4;
+  }
+
+  float area()
+  {
+    return l*2;
+  }
+  void display()
+  {
+    noStroke();
+    rect(x, y, l, l);
+  }
+}
+
+class Rectangulo implements Figura
+{
+  float x, y, b, h;
+
+  Rectangulo(float x_, float y_, float b_, float h_)
+  {
+    x = x_;
+    y = y_;
+    b = b_;
+    h = h_;
+  }
+  float  perimetro()
+  {
+    return (b*2)+ (h*2);
+  }
+  float area()
+  {
+    return b*h;
+  }
+  void display()
+  {
+    noStroke();
+    rect(x, y, b, h);
+  }
+}
+
+class Circulo implements Figura
+{
+  float x, y, r;
+
+  Circulo(float x_, float y_, float r_)
+  {
+    x = x_;
+    y =y_;
+    r = r_;
+  }
+  float perimetro()
+  {
+    return 2*PI*r;
+  }
+
+  float area()
+  {
+    return PI*r*r;
+  }
+  void display()
+  {
+    noStroke();
+    ellipse(x, y, r, r);
+  }
+}
+
+class Pentagono implements Figura
+{
+  float l, a;
+
+  Pentagono(float l_, float a_)
+  {
+    l = l_;
+    a = a_;
+  }
+  float perimetro()
+  {
+    return l*5;
+  }
+  float area()
+  {
+    return (l*5*a)/2;
+  }
+  void display()
+  {
+    caras=5;
+    centroX = 200;
+    radio = 40;
+    centroY = 450;
+    noStroke();
+    poligono(caras, centroX, centroY, radio);
+  }
+}
+
+class Hexagono implements Figura
+{
+  float l, a;
+
+  Hexagono(float l_, float a_)
+  {
+    l = l_; 
+    a = a_;
+  }
+
+  float perimetro()
+  {
+    return l*6;
+  }
+
+  float area()
+  {
+    return (l*6*a)/2;
+  }
+  void display()
+  {
+    caras=6;
+    centroX = 375;
+    radio = 40;
+    centroY = 450;
+    noStroke();
+    poligono(caras, centroX, centroY, radio);
+  }
+}
+
+class Heptagono implements Figura
+{
+  float l, a;
+
+  Heptagono(float l_, float a_)
+  {
+    l = l_;
+    a = a_;
+  }
+  float perimetro()
+  {
+    return l*7;
+  }
+
+  float area()
+  {
+    return (l*7*a)/2;
+  }
+  void display()
+  {
+    caras=7;
+    centroX = 550;
+    radio = 40;
+    centroY = 450;
+    noStroke();
+    poligono(caras, centroX, centroY, radio);
+  }
+}
+
+class Octagono implements Figura
+{
+  float l, a;
+
+  Octagono(float l_, float a_)
+  {
+    l = l_;
+    a = a_;
+  }
+  float perimetro()
+  {
+    return l*8;
+  }
+
+  float area()
+  {
+    return (l*8*a)/2;
+  }
+  void display()
+  {
+    caras=8;
+    centroX = 700;
+    radio = 40;
+    centroY = 450;
+    noStroke();
+    poligono(caras, centroX, centroY, radio);
+  }
+}
+
+void poligono(int caras, int centroX, int centroY, int radio)
+{
+  float angulo= 360/caras;
+
+  beginShape();
+  for (int i=0; i<caras; i++)
+  {
+    vertex(centroX+radio*cos(radians(angulo*i)), centroY+radio*sin(radians(angulo*i)));
+  }
+  endShape(CLOSE);
+}
